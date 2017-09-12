@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../utility/service/http/http.service';
+import { Jsonp } from '@angular/http';
 
 @Component({
     selector: 'storeStart',
@@ -8,7 +9,7 @@ import { HttpService } from '../utility/service/http/http.service';
 })
 
 export class IndexComponent implements OnInit {
-    constructor(private myHttp: HttpService) { }
+    constructor(private myHttp: HttpService, private jsonp: Jsonp) { }
 
     ngOnInit() {
         //发起请求
@@ -22,12 +23,18 @@ export class IndexComponent implements OnInit {
         //     .subscribe((list: any) => {
         //         console.log(list);
         //     })
-
-        this.myHttp
-            .sendRequest('http://localhost/ajia/data_callback/product/&c=JSONP_CALLBACK')
-            .subscribe((list: any) => {
-                console.log(list);
-            })
+        this.jsonp.get('http://localhost/ajia/data_callback/product/?callback=JSONP_CALLBACK')
+            .map(res => res.json())
+            .subscribe((response) => {
+                console.log(response);
+            }, (error) => {
+                console.error(error);
+            });
+        // this.myHttp
+        //     .sendRequest('http://localhost/ajia/data_callback/product/?callback=JSONP_CALLBACK')
+        //     .subscribe((list: any) => {
+        //         console.log(list);
+        //     })
 
     }
 

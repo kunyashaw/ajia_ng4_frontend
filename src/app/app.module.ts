@@ -9,13 +9,14 @@ import { IndexComponent } from './index/index.component'
 import { NotFoundComponent } from './utility/notFound/404.component'
 import { HeaderComponent } from './utility/header/header.component'
 import { FooterComponent } from './utility/footer/footer.component'
-
+import { Carousel } from './index/carousel/carousel.component';
+import { Slide } from './index/carousel/slide.component'
 
 
 @NgModule({
   imports: [BrowserModule, AppRoutingModule, HttpModule, JsonpModule],
   providers: [HttpService],
-  declarations: [AppComponent, IndexComponent, NotFoundComponent, HeaderComponent, FooterComponent],
+  declarations: [AppComponent, IndexComponent, NotFoundComponent, HeaderComponent, FooterComponent, Carousel, Slide],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

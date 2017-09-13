@@ -1,20 +1,64 @@
-<storeHeader></storeHeader>
+<storeHeader>
+</storeHeader>
 
-<!-- banner部分-->
-<div class="ck-slide">
-    <ul class="ck-slide-wrapper">
-        <li style="left:50%; margin: 180px 0 0 -19px;">
-            <img src="img/loading.gif">
-        </li>
-    </ul>
-    <a href="javascript:;" class="ctrl-slide ck-prev">上一张</a> <a href="javascript:;" class="ctrl-slide ck-next">下一张</a>
-    <div class="ck-slidebox">
-        <div class="slideWrap">
-            <ul class="dot-wrap">
-            </ul>
+<carousel [interval]="NextPhotoInterval" [noWrap]="noLoopSlides">
+    <slide *ngFor="let slidez of slides; let index=index" [active]="slidez.active">
+        <img [src]="slidez.image" style="margin:auto;">
+
+        <div class="carousel-caption">
+            <h3 style="background-color: transparent;color: white;">Slide {{index + 1}}</h3>
+            <p style="background-color: transparent;color: white;">{{slidez.text}}</p>
         </div>
+    </slide>
+</carousel>
+
+
+<div>
+    <div class="desc">
+        <p class="name">${data.recommendedItems[0].title}</p>
+        <p class="details">${data.recommendedItems[0].details}</p>
+        <p class="price">￥${data.recommendedItems[0].price}</p>
+        <a href="${data.recommendedItems[0].href}" class="view">查看详情</a>
+    </div>
+    <img src="${data.recommendedItems[0].pic}">
+</div>
+<div>
+    <img src="${data.recommendedItems[1].pic}">
+    <div class="desc">
+        <p class="name">${data.recommendedItems[1].title}</p>
+        <p class="details">${data.recommendedItems[1].details}</p>
+        <p class="price">￥${data.recommendedItems[1].price}</p>
+        <a href="${data.recommendedItems[1].href}" class="view">查看详情</a>
     </div>
 </div>
+<div>
+    <div class="desc">
+        <p class="name">${data.recommendedItems[2].title}</p>
+        <p class="price">￥${data.recommendedItems[2].price}</p>
+        <a href="${data.recommendedItems[2].href}" class="view">查看详情</a>
+    </div>
+    <img src="${data.recommendedItems[2].pic}">
+</div>
+<div class="product ">
+    <img src="${data.recommendedItems[3].pic}" alt="" />
+    <h2>${data.recommendedItems[3].title}</h2>
+    <p>￥${data.recommendedItems[3].price}</p>
+    <a href="${data.recommendedItems[3].href}">查看详情</a>
+</div>
+<div class="product ">
+    <img src="${data.recommendedItems[4].pic}" alt="" />
+    <h2>${data.recommendedItems[4].title}</h2>
+    <p>￥${data.recommendedItems[4].price}</p>
+    <a href="${data.recommendedItems[4].href}">查看详情</a>
+</div>
+<div class="product ">
+    <img src="${data.recommendedItems[5].pic}" alt="" />
+    <h2>${data.recommendedItems[5].title}</h2>
+    <p>￥${data.recommendedItems[5].price}</p>
+    <a href="${data.recommendedItems[5].href}">查看详情</a>
+</div>
+
+
 <!--/*楼梯1f*/-->
 <div class="floor" id="f1">
     <div class="floor_top">

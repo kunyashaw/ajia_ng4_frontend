@@ -9,33 +9,48 @@ import { Jsonp } from '@angular/http';
 })
 
 export class IndexComponent implements OnInit {
-    constructor(private myHttp: HttpService, private jsonp: Jsonp) { }
+    carouselItems: any[] = [];
+    //The time to show the next photo
+    private NextPhotoInterval: number = 1000;
+    //Looping or not
+    private noLoopSlides: boolean = false;
+    //Photos
+    private slides: Array<any> = [];
 
-    ngOnInit() {
-        //发起请求
-        this.loadData();
+    constructor(private myHttp: HttpService, private jsonp: Jsonp) {
+
     }
 
+
+    ngOnInit() {
+
+        //发起请求
+        this.loadData();
+        //设置轮播
+    }
+
+    private removeLastSlide() {
+        this.slides.pop();
+    }
     //定义方法，用来获取首页数据
     loadData() {
-        // this.myHttp
-        //     .sendRequest('http://localhost/ajia/data_callback/product/?call_back')
-        //     .subscribe((list: any) => {
-        //         console.log(list);
-        //     })
         this.jsonp.get('http://localhost/ajia/data_callback/product/?callback=JSONP_CALLBACK')
             .map(res => res.json())
             .subscribe((response) => {
                 console.log(response);
+                this.carouselItems = response.carouselItems;
+                //初始化数据
+                for (var i = 0; i < this.carouselItems.length; i++) {
+                    this.slides.push(
+                        { image: this.carouselItems[i].img, text: this.carouselItems[i].title }
+                    );
+                }
+                //首页推荐
+
+
             }, (error) => {
                 console.error(error);
             });
-        // this.myHttp
-        //     .sendRequest('http://localhost/ajia/data_callback/product/?callback=JSONP_CALLBACK')
-        //     .subscribe((list: any) => {
-        //         console.log(list);
-        //     })
-
     }
 
 }

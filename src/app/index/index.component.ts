@@ -5,11 +5,12 @@ import { Jsonp } from '@angular/http';
 @Component({
     selector: 'storeStart',
     templateUrl: './index.component.html',
-    styleUrls: ['./animate.css', './item_food.css', './slide.css']
+    styleUrls: ['./animate.css', './base.css', './item_cat.css', './item_food.css', './slide.css']
 })
 
 export class IndexComponent implements OnInit {
     carouselItems: any[] = [];
+    recommendedItems: any[] = [];
     //The time to show the next photo
     private NextPhotoInterval: number = 1000;
     //Looping or not
@@ -34,11 +35,11 @@ export class IndexComponent implements OnInit {
     }
     //定义方法，用来获取首页数据
     loadData() {
-        this.jsonp.get('http://localhost/ajia/data_callback/product/?callback=JSONP_CALLBACK')
-            .map(res => res.json())
-            .subscribe((response) => {
+        this.myHttp.sendRequest('http://localhost/ajia/data_callback/product/?callback=JSONP_CALLBACK')
+            .subscribe((response: any) => {
                 console.log(response);
                 this.carouselItems = response.carouselItems;
+                this.recommendedItems = response.recommendedItems
                 //初始化数据
                 for (var i = 0; i < this.carouselItems.length; i++) {
                     this.slides.push(

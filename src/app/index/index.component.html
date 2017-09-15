@@ -12,60 +12,34 @@
     </slide>
 </carousel>
 
-
-<div>
-    <div class="desc">
-        <p class="name">${data.recommendedItems[0].title}</p>
-        <p class="details">${data.recommendedItems[0].details}</p>
-        <p class="price">￥${data.recommendedItems[0].price}</p>
-        <a href="${data.recommendedItems[0].href}" class="view">查看详情</a>
-    </div>
-    <img src="${data.recommendedItems[0].pic}">
-</div>
-<div>
-    <img src="${data.recommendedItems[1].pic}">
-    <div class="desc">
-        <p class="name">${data.recommendedItems[1].title}</p>
-        <p class="details">${data.recommendedItems[1].details}</p>
-        <p class="price">￥${data.recommendedItems[1].price}</p>
-        <a href="${data.recommendedItems[1].href}" class="view">查看详情</a>
-    </div>
-</div>
-<div>
-    <div class="desc">
-        <p class="name">${data.recommendedItems[2].title}</p>
-        <p class="price">￥${data.recommendedItems[2].price}</p>
-        <a href="${data.recommendedItems[2].href}" class="view">查看详情</a>
-    </div>
-    <img src="${data.recommendedItems[2].pic}">
-</div>
-<div class="product ">
-    <img src="${data.recommendedItems[3].pic}" alt="" />
-    <h2>${data.recommendedItems[3].title}</h2>
-    <p>￥${data.recommendedItems[3].price}</p>
-    <a href="${data.recommendedItems[3].href}">查看详情</a>
-</div>
-<div class="product ">
-    <img src="${data.recommendedItems[4].pic}" alt="" />
-    <h2>${data.recommendedItems[4].title}</h2>
-    <p>￥${data.recommendedItems[4].price}</p>
-    <a href="${data.recommendedItems[4].href}">查看详情</a>
-</div>
-<div class="product ">
-    <img src="${data.recommendedItems[5].pic}" alt="" />
-    <h2>${data.recommendedItems[5].title}</h2>
-    <p>￥${data.recommendedItems[5].price}</p>
-    <a href="${data.recommendedItems[5].href}">查看详情</a>
-</div>
-
-
 <!--/*楼梯1f*/-->
 <div class="floor" id="f1">
     <div class="floor_top">
         <img src="img/index/computer_icon.png" alt="" /> 首页推荐 /1F
     </div>
     <div class="floor_content">
-        <img src="img/loading.gif" class="loading">
+        <img *ngIf="carouselItems.length == 0" src="img/loading.gif" class="loading">
+        <div *ngFor="let recommandItem of recommendedItems;
+        let itemIndex = index">
+            <div *ngIf="itemIndex<3">
+
+                <div class="desc">
+                    <img [src]="recommandItem.pic">
+                    <p class="name">{{recommandItem.title}}</p>
+                    <p class="details">{{recommandItem.details}}</p>
+                    <p class="price">￥{{recommandItem.price}}</p>
+                    <a [href]="recommandItem.href" class="view">查看详情</a>
+                </div>
+            </div>
+            <div *ngIf="itemIndex>=3" class="product">
+                <img [src]="recommandItem.pic" alt="" />
+                <h5>{{recommandItem.title}}</h5>
+                <p>￥{{recommandItem.price}}</p>
+                <a [href]="recommandItem.href">查看详情</a>
+            </div>
+
+
+        </div>
     </div>
 </div>
 
@@ -75,7 +49,14 @@
         <img src="img/index/computer_icon.png" alt="" /> 最新上架 /2F
     </div>
     <div class="floor_content">
-        <img src="img/loading.gif" class="loading">
+        <img *ngIf="carouselItems.length == 0" src="img/loading.gif" class="loading">
+
+        <div [class]="itemIndex<3?desc:product" *ngFor="let recommandItem of recommendedItems;let itemIndex = index">
+            <img [src]="recommandItem.pic" alt="" />
+            <h5>{{recommandItem.title}}</h5>
+            <p>￥{{recommandItem.price}}</p>
+            <a [href]="recommandItem.href">查看详情</a>
+        </div>
     </div>
 </div>
 

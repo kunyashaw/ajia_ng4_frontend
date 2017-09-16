@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../service/http/http.service';
+import { Router } from '@angular/router'
 @Component({
     selector: 'storeHeader',
     templateUrl: './header.component.html'
 })
 
 export class HeaderComponent implements OnInit {
-    constructor(private httpService: HttpService) { }
+    constructor(private httpService: HttpService, private router: Router) { }
     userLogined = false;
     userName = "获取名字中...";
     ngOnInit() {
@@ -14,10 +15,14 @@ export class HeaderComponent implements OnInit {
     }
 
     logout() {
-        this.httpService.sendRequest('http://localhost/ajia/data_callback/user/logout.php?&callback=JSONP_CALLBACK')
+        this.httpService.sendRequest('/user/logout.php?&callback=JSONP_CALLBACK')
             .subscribe((result: any) => {
                 if (result.code == 200) {
-                    alert('<h4>退出成功</h4>点击确定重新返回登录页面');
+                    var r = confirm('退出成功');
+                    console.log(r);
+                    if (r) {
+                        this.userLogined = false;
+                    }
                 }
                 else {
                     alert('登录退出失败！原因：' + result.msg);
@@ -26,7 +31,7 @@ export class HeaderComponent implements OnInit {
     }
 
     checkLogin() {
-        this.httpService.sendRequest('http://localhost/ajia/data_callback/user/session_data.php?&callback=JSONP_CALLBACK')
+        this.httpService.sendRequest('/user/session_data.php?&callback=JSONP_CALLBACK')
             .subscribe((result: any) => {
                 console.log(result)
                 if (result.uname) {

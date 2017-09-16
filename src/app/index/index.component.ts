@@ -35,7 +35,7 @@ export class IndexComponent implements OnInit {
     }
     //定义方法，用来获取首页数据
     loadData() {
-        this.myHttp.sendRequest('http://localhost/ajia/data_callback/product/?callback=JSONP_CALLBACK')
+        this.myHttp.sendRequest('/product/?callback=JSONP_CALLBACK')
             .subscribe((response: any) => {
                 console.log(response);
                 this.carouselItems = response.carouselItems;

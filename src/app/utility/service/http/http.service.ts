@@ -9,11 +9,13 @@ import { Jsonp } from '@angular/http';
 @Injectable()
 export class HttpService {
     isDev = true;
+    baseUrl = "http://localhost/ajia/data_callback";
     constructor(private http: Http, private jsonp: Jsonp) {
 
     }
 
     sendRequest(url: string): Observable<any[]> {
+        url = this.baseUrl + url;
         if (this.isDev) {
             return this.jsonp
                 .get(url)
@@ -31,8 +33,9 @@ export class HttpService {
     }
 
     sendPostRequest(url: string, data: string): Observable<any[]> {
-        let headers = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
-        let options = new RequestOptions({ headers: headers }); // Create a request option
+        // let headers = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+        // let options = new RequestOptions({ headers: headers }); // Create a request option
+        url = this.baseUrl + url;
         console.log("url is " + url);
         console.log("data is " + data);
         if (this.isDev) {
@@ -41,7 +44,7 @@ export class HttpService {
                 .map(res => res.json())
         }
         else {
-            return this.http.post(url, data, options)
+            return this.http.post(url, data)
                 .map((res: Response) => {
                     return res.json();
                 })

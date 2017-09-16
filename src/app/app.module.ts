@@ -15,12 +15,14 @@ import { Slide } from './index/carousel/slide.component'
 import { LoginComponent } from './login/login.component'
 import { RegisterComponent } from './register/register.component'
 import { CollectComponent } from './collect/collect.component'
+import { ListComponent } from './list/list.component'
+import { DetailComponent } from './detail/detail.component'
 
 
 @NgModule({
   imports: [BrowserModule, AppRoutingModule, HttpModule, JsonpModule, FormsModule],
   providers: [HttpService],
-  declarations: [AppComponent, IndexComponent, NotFoundComponent, HeaderComponent, FooterComponent, Carousel, Slide, LoginComponent, RegisterComponent, CollectComponent],
+  declarations: [AppComponent, IndexComponent, NotFoundComponent, HeaderComponent, FooterComponent, Carousel, Slide, LoginComponent, RegisterComponent, CollectComponent, ListComponent, DetailComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

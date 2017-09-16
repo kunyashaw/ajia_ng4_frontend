@@ -19,9 +19,9 @@ export class LoginComponent implements OnInit {
 
     //定义表单提交时要执行的方法
     handleSubmit() {
-
+        console.log('submit event is triggered');
         this.httpService.sendPostRequest(
-            'http://localhost/ajia/data_callback/user/login.php/?&callback=JSONP_CALLBACK',
+            '/user/login.php/?&callback=JSONP_CALLBACK',
             'uname=' + this.uname + "&upwd=" + this.upwd
         )
             .subscribe((result: any) => {

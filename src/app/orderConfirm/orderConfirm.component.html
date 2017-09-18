@@ -1,0 +1,81 @@
+<storeHeader></storeHeader>
+
+
+<div id="navlist">
+    <ul>
+        <li class="navlist_blue_left"></li>
+        <li class="navlist_blue">确认订单信息</li>
+        <li class="navlist_blue_arro">
+            <canvas id="canvas_blue" width="20" height="38"></canvas>
+        </li>
+        <li class="navlist_gray">支付订单<b></b></li>
+        <li class="navlist_gray_arro">
+            <canvas id="canvas_gray" width="20" height="38"></canvas>
+        </li>
+        <li class="navlist_gray">支付完成<b></b></li>
+        <li class="navlist_gray_right"></li>
+    </ul>
+</div>
+<!--订单确认-->
+<div id="container" class="clear">
+    <!--收货地址-->
+    <div class="adress_choice">
+        <p>选择收货地址</p>
+
+        <div id="addresId1">
+            <i class="address_name">
+                丁当 北京
+            </i>
+            <i class="user_address">
+                北京市 海淀区 大钟寺123号 139366668888
+            </i>
+        </div>
+        <a href="#">
+            更多地址 &gt;&gt;
+        </a>
+    </div>
+    <!-- 商品信息-->
+    <form name="" method="post" action="#">
+        <div class="product_confirm">
+            <p>确认商品信息</p>
+            <ul class="item_title">
+                <li class="p_info">商品信息</li>
+                <li class="p_price">单价(元)</li>
+                <li class="p_count">数量</li>
+                <li class="p_tPrice">金额</li>
+            </ul>
+            <div id="product_list">
+                <div class="loading"><img src="img/loading.gif"></div>
+                <!--<ul class="item_detail">
+                <li class="p_info">
+                    <b><img src="img/orderConfirm/product_simg1.png"/></b>
+
+                    <b class="product_name lf">
+                        联想(Lenovo)YoGA5 PRO 标配版电脑 (I5-7200U 8G 512G SSD IPS)
+                    </b>
+                    <br/>
+                <span class="product_color ">
+                   颜色：深空灰
+                </span>
+                </li>
+                <li class="p_price">
+                    <i>阿甲专属价</i>
+                    <br/>
+                    <span class="pro_price">￥<span class="ppp_price">4800.00</span></span>
+                </li>
+                <li class="p_count">X<span>1</span></li>
+                <li class="p_tPrice">￥<span></span></li>
+            </ul>-->
+            </div>
+        </div>
+    </form>
+    <!-- 结算条-->
+    <div id="count_bar">
+        <span class="go_cart"><a href="#" >&lt;&lt;返回购物车</a></span>
+        <span class="count_bar_info">已选<b  id="count"> 0 </b>件商品&nbsp;&nbsp;合计(不含运费):<b class="zj"></b> <input type="hidden" name="Payment" value=""/>元</span>
+        <span class="go_pay">确认并付款</span>
+    </div>
+</div>
+
+
+<storeFooter></storeFooter>

@@ -17,7 +17,7 @@ export class ListComponent implements OnInit {
 
     loadData() {
         //'/user/logout.php?&callback=JSONP_CALLBACK'
-        this.httpService.sendRequest('product/list.php?&callback=JSONP_CALLBACK')
+        this.httpService.sendRequest('/product/list.php?&callback=JSONP_CALLBACK')
             .subscribe((result: any) => {
                 console.log(result);
 

@@ -4,37 +4,40 @@
 <!-- 内容-->
 <!--细节导航-->
 <div id="nav_detail">
-    <h5>首页 > 学习用品 > 笔记本电脑 > <span id="fname"></span></h5>
+    <h5>首页 > 学习用品 > 笔记本电脑 > <span id="fname">{{family.fname}}</span></h5>
 </div>
-<div class="loading">
+<div class="loading" *ngIf="details.length==0">
     <img src="img/loading.gif" alt="加载中...">
 </div>
-<div class="product_details">
+<div class="product_details" *ngIf="isDataReady">
     <!--产品预览-->
     <div id="shop_detail">
         <!-- 左侧-->
         <div id="preview" class="lf">
             <div id="mediumDiv">
-                <img id="mImg" src="img/product_detail/product_detail_img15.png" />
+                <img id="mImg" [src]="details.picList[0].md" />
             </div>
             <div id="icon_all">
                 <ul id="icon_list">
                     <!--<li class="i1"><img src="img/product_detail/product_detail_img1.jpg"/></li>-->
                     <!--<li class="i1"><img src="img/product_detail/product_detail_img3.jpg"/></li>-->
+                    <li *ngFor="let pic of details.picList " class="i1">
+                        <img [src]="pic.sm" data-md="pic.md" data-lg="pic.lg">
+                    </li>
                 </ul>
             </div>
         </div>
         <!-- 右侧-->
         <div class="right_detail lf">
             <!-- 商品名称-->
-            <h1 class="title">Lenovo-YOGA 700</h1>
+            <h1 class="title">{{details.title}}</h1>
             <!-- 商品全称-->
-            <h3 class="subtitle">(i7-7500U 8G 256GSSD 2G独显 全高清IPS 360°翻转 正版office)</h3>
+            <h3 class="subtitle">{{details.subtitle}}</h3>
             <!-- 价格部分-->
             <div class="price">
-                <div id="pro_price"><b>学员售价：</b><span>￥5999.00</span></div>
+                <div id="pro_price"><b>学员售价：</b><span>￥{{details.price}}</span></div>
                 <div class="promise">
-                    <b>服务承诺：</b>
+                    <b>服务承诺：{{details.promise}}</b>
                     <!--<span>*退货补运费</span>
           <span>*30天无忧退货</span>
           <span>*48小时快速退款</span>
@@ -49,6 +52,9 @@
             <!-- 规格-->
             <p class="spec">
                 <s>规格：</s>
+                <a href="" *ngFor="let laptop of family.laptopList" class="avenge">
+                    {{laptop.spec}}
+                </a>
 
             </p>
             <!-- 未选择规格，颜色时状态-->
@@ -134,15 +140,15 @@
                         </p>
                     </div>
                     <ul>
-                        <!--<li><a href="#">商品名称：联想YOGA 710</a></li>
-            <li><a href="#">系统：windows10</a></li>
-            <li><a href="#">内存容量：8G</a></li>
-            <li><a href="#">分辨率：全清高屏(1920*1080)</a></li>
-            <li><a href="#">显卡型号：GT940M</a></li>
-            <li><a href="#">处理器：Intel i7低功耗版</a></li>
-            <li><a href="#">显存容量：2G</a></li>
-            <li><a href="#">分类：清薄本</a></li>
-            <li><a href="#">硬盘容量:256G固态</a></li>-->
+                        <li><a href="#">商品名称：{{details.lname}}</a></li>
+                        <li><a href="#">系统：{{details.os}}</a></li>
+                        <li><a href="#">内存容量：{{details.memory}}</a></li>
+                        <li><a href="#">分辨率：{{details.resolution}}</a></li>
+                        <li><a href="#">显卡型号：{{details.video_card}}</a></li>
+                        <li><a href="#">处理器：{{details.cpu}}</a></li>
+                        <li><a href="#">显存容量：{{details.video_memory}}</a></li>
+                        <li><a href="#">分类：{{details.category}}</a></li>
+                        <li><a href="#">硬盘容量:{{details.disk}}</a></li>
                     </ul>
                 </div>
                 <div id="product_introduction">
@@ -151,6 +157,8 @@
                         <img src="img/product_detail/product_detail_icon_4.png" alt="" class="ys5" />
                     </p>
                     <!--<img src="img/product_detail/product_detail_img8.png" alt=""/>-->
+                    <div [innerHTML]="details.details"></div>
+
                 </div>
                 <div id="sale_protection">
                     <p>

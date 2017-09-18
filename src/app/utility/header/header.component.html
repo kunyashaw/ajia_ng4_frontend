@@ -20,13 +20,13 @@
         <ul class="lf">
             <li><a routerLink="/collect" title="我的收藏"><img class="care" src="img/header/care.png" alt=""/></a><b>|</b></li>
             <li><a routerLink="/userCenter" title="用户中心"><img class="order" src="img/header/order.png" alt=""/></a><b>|</b></li>
-            <li><a routerLink="/myCart" title="我的购物车"><img class="shopcar" src="img/header/shop_car.png" alt=""/></a><b>|</b></li>
+            <li><a routerLink="/cart" title="我的购物车"><img class="shopcar" src="img/header/shop_car.png" alt=""/></a><b>|</b></li>
         </ul>
         <ul *ngIf="userLogined" class="lf login_info">
             <li>
                 &nbsp;欢迎: {{userName}}
                 <a (click)="logout()" title="退出登录">退出</a><b>|</b></li>
-            <li><a href="/userCenter" title="用户中心">用户中心</a></li>'
+            <li><a routerLink="/userCenter" title="用户中心">用户中心</a></li>'
         </ul>
         <ul *ngIf="!userLogined" class="lf login_info">
             <li><a routerLink="/register" title="注册新用户">&nbsp;注册</a><b>|</b></li>

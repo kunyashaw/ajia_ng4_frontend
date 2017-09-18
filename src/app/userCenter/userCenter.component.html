@@ -1,0 +1,111 @@
+<storeHeader></storeHeader>
+<!-- 我的订单导航栏-->
+<div id="nav_order">
+    <ul>
+        <li><a href="">首页<span>&gt;</span>用户中心</a></li>
+    </ul>
+</div>
+<!--我的订单内容区域 #container-->
+<div id="container" class="clearfix">
+    <!-- 左边栏-->
+    <div id="leftsidebar_box" class="lf">
+        <div class="line"></div>
+        <dl class="my_order">
+            <dt onClick="changeImage()">我的订单
+                <img src="img/myOrder/myOrder2.png">
+            </dt>
+            <dd class="first_dd"><a href="myOrder.html">全部订单</a></dd>
+            <dd>
+                <a href="#">
+          待付款
+          <span><!--待付款数量--></span>
+        </a>
+            </dd>
+            <dd>
+                <a href="#">
+          待收货
+          <span><!--待收货数量-->1</span>
+        </a>
+            </dd>
+            <dd>
+                <a href="#">
+          待评价<span><!--待评价数量--></span>
+        </a>
+            </dd>
+            <dd>
+                <a href="#">退货退款</a>
+            </dd>
+        </dl>
+
+        <dl class="footMark">
+            <dt onClick="changeImage()">我的优惠卷<img src="img/myOrder/myOrder1.png"></dt>
+        </dl>
+
+        <dl class="address">
+            <dt>收货地址<img src="img/myOrder/myOrder1.png"></dt>
+            <dd><a href="addressAdmin.html">地址管理</a></dd>
+        </dl>
+        <dl class="count_managment">
+            <dt onClick="changeImage()">帐号管理<img src="img/myOrder/myOrder1.png"></dt>
+            <dd class="first_dd"><a href="uc_basic.html">我的信息</a></dd>
+            <dd><a href="uc_avatar.html">个人头像</a></dd>
+            <dd><a href="uc_password.html">安全管理</a></dd>
+        </dl>
+
+
+    </div>
+    <!-- 右边栏-->
+    <!--个人信息头部-->
+    <div class="rightsidebar_box rt">
+        <div class="rs_header">
+            <span class="rs_header_active"><a href="uc_basic.html">我的信息</a></span>
+            <span><a href="uc_avatar.html">个人头像</a></span>
+            <span><a href="uc_password.html">安全管理</a></span>
+        </div>
+
+        <!--个人信息具体内容 -->
+        <div class="rs_content">
+            <form id="form-uc-basic">
+                <!--头像-->
+                <div class="rs_content_avatar">
+                    <span class="label">我的头像：</span>
+                    <img id="avatar" src="img/avatar/default.png">
+                    <span class="same_click" onclick="toPage('uc_avatar.html')">更改头像</span>
+                </div>
+                <!--用户名-->
+                <div class="rs_content_username">
+                    <span class="label">用户名：</span>
+                    <input name="user_name" type="text">
+                </div>
+                <!--性别-->
+                <div class="rs_content_sex">
+                    <span class="label">性别：</span>
+                    <input type="hidden" name="gender" value="1">
+                    <span class="man selected">
+              <img src="img/uc/select.png">男
+          </span>
+                    <span class="women">
+              <img src="img/uc/un_select.png">女
+          </span>
+                </div>
+                <!--绑定电话-->
+                <div class="rs_content_tel">
+                    <span class="label">绑定电话：</span>
+                    <input name="phone" type="text">
+                </div>
+                <!--绑定邮箱-->
+                <div class="rs_content_mail">
+                    <span class="label">绑定邮箱：</span>
+                    <input name="email">
+                </div>
+                <!--保存按钮-->
+                <div class="save">
+                    保存更改
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<storeFooter></storeFooter>

@@ -16,11 +16,11 @@
                 <div class="salc_content">
                     <img *ngIf="productList.length==0" class="loading" src="img/loading.gif">
                     <div *ngFor="let p of productList" class="product" [id]="p.lid">
-                        <a [routerLink]="'/detail/lid'+p.lid"><img [src]="p.pic" [alt]="p.title"/></a>
+                        <a [routerLink]="'/detail/'+p.lid"><img [src]="p.pic" [alt]="p.title"/></a>
                         <div>
                             <div>
                                 <span class="price">￥{{p.price}}</span>
-                                <a [routerLink]="/detail/p.lid" class="title" [title]="p.title">
+                                <a [routerLink]="'/detail/'+p.lid" class="title" [title]="p.title">
                                     {{p.title}}
                                     </a>
                             </div>

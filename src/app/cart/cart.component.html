@@ -31,7 +31,8 @@
             <div id="title">
                 <b>购物车</b>
                 <p>
-                    已选<span class="total color">0</span>件商品<span class="interval"></span>合计(不含运费):<span class="totalPrices color susum">0.00</span>
+                    已选<span class="total color">{{nowTotalSelectCount}}</span>件商品
+                    <span class="interval"></span>合计(不含运费):<span class="totalPrices color susum">{{nowTotalSelectPrice}}</span>
                     <span class="unit color">元</span>
                 </p>
             </div>
@@ -39,11 +40,12 @@
                 <div id="content_box">
                     <div class="imfor_top">
                         <div class="check_top">
-                            <div class="all">
-                                <span class="normal">
-                                <img src="img/cart/product_normal.png" alt=""/>
-                            </span> <input type="hidden" name="" value="">全选
-                            </div>
+                            <span class="normal" (click)="selectAll()">
+                                <img *ngIf="!isSelectAll" src="img/cart/product_normal.png" alt=""/>
+                                <img *ngIf="isSelectAll" src="img/cart/product_true.png" alt="" />
+                            </span>
+                            <input type="hidden" name="" value="">全选
+                            <!-- </div> -->
                         </div>
                         <div class="pudc_top">商品</div>
                         <div class="pices_top">单价(元)</div>
@@ -52,61 +54,83 @@
                         <div class="del_top">操作</div>
                     </div>
                     <div id="content_box_body">
-                        <div class="loading">
+                        <div class="loading" *ngIf="!isDataReady">
                             <img src="img/loading.gif" alt="购物车内容加载中...">
                         </div>
-                        <div class="imfor">
-                            <div class="check">
-                                <div class="Each">
-                                    <span class="normal">
-                                <img src="img/cart/product_normal.png" alt=""/>
-                            </span>
-                                    <input type="hidden" name="" value="">
+
+                        <div *ngFor="let p of productList;let nowIndex=index">
+                            <div class="imfor">
+                                <div class="check">
+                                    <div class="Each" (click)="selectSpecifyOne(nowIndex)">
+                                        <span class="normal">
+                                            <img *ngIf="!p.isSelected" src="img/cart/product_normal.png" alt=""/>
+                                            <img *ngIf="p.isSelected" src="img/cart/product_true.png" alt="">
+                                        </span>
+                                        <!-- <input type="hidden" name="lid" value=""> -->
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="pudc">
-                                <div class="pudc_information" id="pudcId3">
-                                    <img src="img/cart/product_simg1.png" class="lf" />
-                                    <input type="hidden" name="" value="">
-                                    <span class="des lf">
-                            <a href="product_details.html">联想(Lenovo)YOGA5 PRO 标配版电脑(i5-7200u 8G 512G SSD FHD IPS)银</a>
-                              <input type="hidden" name="" value="">
-                        </span>
-                                    <p class="col lf"><span>颜色：</span><span class="color_des">深空灰  <input type="hidden" name=""
-                                                                                      value=""></span></p>
+                                <div class="pudc">
+                                    <div class="pudc_information" [id]="p.iid">
+                                        <a [routerLink]="'/detail/'+p.lid"><img [src]="p.pic" class="lf"/></a>
+                                        <input type="hidden" name="" value="">
+                                        <span class="des lf">
+                                             <a [routerLink]="'/detail/'+p.lid">{{p.title}}</a>
+                                             <input type="hidden" name="" value="">
+                                        </span>
+                                        <p class="col lf">
+                                            <span>规格：</span>
+                                            <span class="color_des">
+                                            {{p.spec}}
+                                            <input type="hidden" name="" value="">
+                                        </span>
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="pices">
-                                <p class="pices_des">阿甲专享价</p>
-                                <p class="pices_information"><b>￥</b><span>4888.00  <input type="hidden" name="" value=""></span></p>
-                            </div>
-                            <div class="num"><span class="reduc">&nbsp;-&nbsp;</span><input type="text" value="1"><span class="add">&nbsp;+&nbsp;</span>
-                            </div>
-                            <div class="totle">
-                                <span>￥</span>
-                                <span class="totle_information">4888.00</span>
-                            </div>
-                            <div class="del">
-                                <a href="javascript:;" class="del_d">删除</a>
+                                <div class="pices">
+                                    <p class="pices_des">阿甲专享价</p>
+                                    <p class="pices_information">
+                                        <b>￥</b>
+                                        <span>{{p.price}} 
+                                         <input type="hidden" name="" value="">
+                                        </span>
+                                    </p>
+                                </div>
+                                <div class="num">
+                                    <span (click)="modifyCount(nowIndex,false)" class="reduc">&nbsp;-&nbsp;</span>
+                                    <!-- <h1>{{p.count}}</h1> -->
+                                    <span>{{p.count}}</span>
+                                    <!-- <input type="text" name="count" [ngModel]="p.count"> -->
+                                    <span (click)="modifyCount(nowIndex,true)" class="add">&nbsp;+&nbsp;</span>
+                                </div>
+                                <div class="totle">
+                                    <span>￥</span>
+                                    <span class="totle_information">{{p.price * p.count}}</span>
+                                </div>
+                                <div class="del">
+                                    <a href="javascript:;" class="del_d">删除</a>
+                                </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
                 <div class="foot">
                     <div class="foot_check">
                         <div class="all">
-                            <span class="normal">
-                                <img src="img/cart/product_normal.png" alt=""/>
-                            </span> <input type="hidden" name="" value="">全选
+                            <span class="normal" (click)="selectAll()">
+                                <img *ngIf="!isSelectAll" src="img/cart/product_normal.png" alt=""/>
+                                <img *ngIf="isSelectAll" src="img/cart/product_true.png" alt="" />
+                        </span>
+                            <input type="hidden" name="" value="">全选
                         </div>
                     </div>
                     <a href="javascript:;" class="foot_del">删除</a>
                     <!--<a href="javascript:;" class="foot_yr">移入收藏夹</a>-->
                     <div class="foot_qk">清空失效商品</div>
-                    <div class="foot_cash" id="go-buy">去结算</div>
-                    <div class="foot_tol"><span>合计(不含运费):</span><span class="foot_pices susumOne">0.00</span><span class='foot_des'>元</span></div>
+                    <div (click)="toPay()" class="foot_cash" id="go-buy">去结算</div>
+                    <div class="foot_tol"><span>合计(不含运费):</span><span class="foot_pices susumOne">{{nowTotalSelectPrice}}</span><span class='foot_des'>元</span></div>
                     <div class="foot_selected">
-                        已选<span class="totalOne color">0</span>件商品
+                        已选<span class="totalOne color">{{nowTotalSelectCount}}</span>件商品
                     </div>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { HttpService } from '../service/http/http.service';
 import { Router } from '@angular/router'
 @Component({
@@ -7,6 +7,8 @@ import { Router } from '@angular/router'
 })
 
 export class HeaderComponent implements OnInit {
+    @Output() toFather = new EventEmitter();
+
     constructor(private httpService: HttpService, private router: Router) { }
     userLogined = false;
     userName = "获取名字中...";
@@ -37,6 +39,7 @@ export class HeaderComponent implements OnInit {
                 if (result.uname) {
                     this.userName = result.uname;
                     this.userLogined = true;
+                    this.toFather.emit(true);
                 }
 
             })

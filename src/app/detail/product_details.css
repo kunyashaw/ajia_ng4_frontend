@@ -631,6 +631,55 @@
 }
 
 
+.enter_spec {
+  display: inline-block;
+  /*width: 86px;*/
+  height: 36px;
+  text-align: center;
+  font-size: 1em;
+  margin-right: 3px;
+  margin-bottom: 2px;
+  padding: 8px 10px;
+  text-align: center;
+  vertical-align: middle;
+  box-sizing: border-box;
+  cursor: pointer;
+  border: 1px solid #0AA1ED;
+  color: #0AA1ED;
+}
+
+.leave_spec {
+    color: #666;
+  display: inline-block;
+  /*width: 86px;*/
+  height: 36px;
+  text-align: center;
+  font-size: 1em;
+  border: 1px solid #666666;
+  margin-right: 3px;
+  margin-bottom: 2px;
+  padding: 8px 10px;
+  text-align: center;
+  vertical-align: middle;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

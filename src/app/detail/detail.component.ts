@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router'
 import { HttpService } from '../utility/service/http/http.service'
+import { Router } from '@angular/router'
 
 @Component({
     selector: 'storeDetail',
@@ -9,11 +10,19 @@ import { HttpService } from '../utility/service/http/http.service'
 })
 
 export class DetailComponent implements OnInit {
+
     id: any = "";
     isDataReady = false;
     details = {};
     family = {};
-    constructor(private activatedRoute: ActivatedRoute, private httpService: HttpService) { }
+    nowSelectIndex = 0;//选中缩略图，显示大图
+    nowMouseSpec = 0;//当前的规格
+    isSpecSelected = 0;
+    isEnter = false;//鼠标放在光标时改变颜色
+    isLogin = false;//是否登录
+
+    nowCount = 1;
+    constructor(private router: Router, private activatedRoute: ActivatedRoute, private httpService: HttpService) { }
 
     ngOnInit() {
         this.activatedRoute.params.subscribe((result: any) => {
@@ -21,6 +30,35 @@ export class DetailComponent implements OnInit {
             this.id = result.id;
             this.loadData();
         })
+    }
+    // 选中详情页中的小图片时，同步修改大图片
+    changeIndex(nowSelectIndex: number) {
+        this.nowSelectIndex = nowSelectIndex;
+    }
+
+    //选中某款规格，改变class boardChagne
+    selectSpec(index: number) {
+        this.isSpecSelected = index;
+    }
+    mouseGo(enter: true, index: number) {
+        console.log(enter ? '进入' : '离开');
+        this.isEnter = enter;
+        this.nowMouseSpec = index;
+    }
+    //定义方法，用来实现数量加减
+    modifyCount(isAdd: boolean) {
+        if (isAdd) {
+            this.nowCount++;
+        }
+        else {
+            if (this.nowCount > 1) {
+                this.nowCount--;
+            }
+        }
+    }
+
+    wetherLogin(data: boolean) {
+        this.isLogin = data;
     }
 
     loadData() {
@@ -30,56 +68,26 @@ export class DetailComponent implements OnInit {
                 console.log(result);
                 this.details = result.details;
                 this.family = result.family;
-                console.log(this.details.picList);
+                //console.log(this.details.picList);
             })
-        /**
-         * $('body > .loading').hide();
-            console.log(result);
-            var details = result.details;
-            var family = result.family;
-            $('#fname').html(family.fname);
-
-            $('#mImg').attr('src', details.picList[0].md);
-            //缩略图
-            var html = '';
-            $.each(details.picList, function (i, pic) {
-                if (i < 5) {
-                    html += `<li class="i1"><img src="${pic.sm}" data-md="${pic.md}" data-lg="${pic.lg}"></li>`;
-                }
-            })
-            $('#icon_list').html(html);
-            $('.right_detail .title').html(details.title);
-            $('.right_detail .subtitle').html(details.subtitle);
-            $('#pro_price span').html('￥' + details.price);
-            $('.price .promise').html('<b>服务承诺：</b>' + details.promise);
-            //规格
-            var html = '<s>规格：</s><div>';
-            $.each(family.laptopList, function (i, laptop) {
-                html += `<a href="product_details.html?lid=${laptop.lid}" class="avenge ${laptop.lid === details.lid ? 'borderChange' : ''}">${laptop.spec}</a>`;
-            });
-            html += '</div>';
-            $('.spec').html(html);
-            //详细参数
-            var html = `
-  <li><a href="#">商品名称：${details.lname}</a></li>
-  <li><a href="#">系统：${details.os}</a></li>
-  <li><a href="#">内存容量：${details.memory}</a></li>
-  <li><a href="#">分辨率：${details.resolution}</a></li>
-  <li><a href="#">显卡型号：${details.video_card}</a></li>
-  <li><a href="#">处理器：${details.cpu}</a></li>
-  <li><a href="#">显存容量：${details.video_memory}</a></li>
-  <li><a href="#">分类：${details.category}</a></li>
-  <li><a href="#">硬盘容量:${details.disk}</a></li>
-`;
-            $('#parm ul').html(html);
-            //详细介绍
-            $('#product_introduction').append(details.details);
-
-            //显示产品细节主体
-            $('.product_details').show();
+    }
+    //添加到购物车，当用户登录且添加成功时，跳转到购物车页面，否则退出到登录页面
+    addToCart() {
+        if (this.isLogin) {
+            this.httpService.sendRequest('/cart/add.php?&callback=JSONP_CALLBACK&lid=' + this.id + "&buyCount=" + this.nowCount)
+                .subscribe((result: any) => {
+                    console.log(result);
+                    if (result.code === 200) {
+                        this.jump('/cart')
+                    }
+                })
         }
-         *
-         *
-         */
+        else {
+            this.jump('/login')
+        }
+    }
+
+    jump(url: string) {
+        this.router.navigateByUrl(url);
     }
 }

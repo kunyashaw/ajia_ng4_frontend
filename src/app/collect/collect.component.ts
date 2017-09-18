@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { HttpService } from '../utility/service/http/http.service';
 @Component({
     selector: 'storeCollect',
     templateUrl: './collect.component.html',
@@ -7,7 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class CollectComponent implements OnInit {
-    constructor() { }
+    constructor(private httpService: HttpService) { }
 
     ngOnInit() { }
+
+    loadData() {
+        // this.httpService.sendPostRequest
+    }
 }

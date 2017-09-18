@@ -1,5 +1,5 @@
 <h1>{{"菜品id是"+id}}</h1>
-<storeHeader>
+<storeHeader (toFather)="wetherLogin($event)">
 </storeHeader>
 <!-- 内容-->
 <!--细节导航-->
@@ -15,13 +15,13 @@
         <!-- 左侧-->
         <div id="preview" class="lf">
             <div id="mediumDiv">
-                <img id="mImg" [src]="details.picList[0].md" />
+                <img id="mImg" [src]="details.picList[nowSelectIndex].md" />
             </div>
             <div id="icon_all">
                 <ul id="icon_list">
                     <!--<li class="i1"><img src="img/product_detail/product_detail_img1.jpg"/></li>-->
                     <!--<li class="i1"><img src="img/product_detail/product_detail_img3.jpg"/></li>-->
-                    <li *ngFor="let pic of details.picList " class="i1">
+                    <li (click)="changeIndex(nowSelectIndex)" *ngFor="let pic of details.picList;let nowSelectIndex=index " class="i1">
                         <img [src]="pic.sm" data-md="pic.md" data-lg="pic.lg">
                     </li>
                 </ul>
@@ -52,26 +52,27 @@
             <!-- 规格-->
             <p class="spec">
                 <s>规格：</s>
-                <a href="" *ngFor="let laptop of family.laptopList" class="avenge">
+                <a (click)="selectSpec(nowIndex)" (mouseenter)="mouseGo(true,nowIndex)" (mouseleave)="mouseGo(false,nowIndex)" [ngClass]="{'enter_spec':isEnter&&(nowMouseSpec == nowIndex),'leave_spec':!isEnter || (nowMouseSpec != nowIndex),'borderChange':isSpecSelected==nowIndex}"
+                    *ngFor="let laptop of family.laptopList;let nowIndex = index">
                     {{laptop.spec}}
                 </a>
-
             </p>
             <!-- 未选择规格，颜色时状态-->
             <div class="message"></div>
             <!-- 数量-->
             <p class="accountChose">
                 <s>数量：</s>
-                <button class="numberMinus">-</button>
-                <input type="text" value="1" class="number" id="buy-num">
-                <button class="numberAdd">+</button>
+                <button class="numberMinus" (click)="modifyCount(false)">-</button>
+                <input type="text" [(ngModel)]="nowCount" class="number" id="buy-num">
+                <button class="numberAdd" (click)="modifyCount(true)">+</button>
             </p>
             <!-- 购买部分-->
             <div class="shops">
-                <a href="cart.html" class="buy lf" id="buy_now">立即购买</a>
-                <a href="#" class="shop lf" id="add_cart"><img src="img/product_detail/product_detail_img7.png"
+                <a (click)=" addToCart()" class="buy lf" id="buy_now">立即购买</a>
+                <a (click)=" addToCart()" class="shop lf" id="add_cart">
+                    <img src="img/product_detail/product_detail_img7.png"
                                                        alt=""/>加入购物车</a>
-                <a href="my_collect.html" class="collection lf" id="collect"><span>收藏</span></a><b><img
+                <a routerLink="/collect" class="collection lf" id="collect"><span>收藏</span></a><b><img
         src="img/product_detail/product_detail_img6.png" alt=""/></b>
             </div>
         </div>

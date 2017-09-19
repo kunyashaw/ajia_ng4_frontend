@@ -1,6 +1,3 @@
-<storeHeader></storeHeader>
-
-
 <div id="navlist">
     <ul>
         <li class="navlist_blue_left"></li>
@@ -46,36 +43,30 @@
             </ul>
             <div id="product_list">
                 <div class="loading"><img src="img/loading.gif"></div>
-                <!--<ul class="item_detail">
-                <li class="p_info">
-                    <b><img src="img/orderConfirm/product_simg1.png"/></b>
-
-                    <b class="product_name lf">
-                        联想(Lenovo)YoGA5 PRO 标配版电脑 (I5-7200U 8G 512G SSD IPS)
-                    </b>
-                    <br/>
-                <span class="product_color ">
-                   颜色：深空灰
-                </span>
-                </li>
-                <li class="p_price">
-                    <i>阿甲专属价</i>
-                    <br/>
-                    <span class="pro_price">￥<span class="ppp_price">4800.00</span></span>
-                </li>
-                <li class="p_count">X<span>1</span></li>
-                <li class="p_tPrice">￥<span></span></li>
-            </ul>-->
+                <div *ngFor="let p of cartList">
+                    <ul class="item_detail">
+                        <li class="p_info">
+                            <b><img [src]="p.pic"/></b>
+                            <b class="product_name lf">{{p.title}}</b>
+                            <br/>
+                            <span class="product_color ">规格：{{p.spec}</span>
+                        </li>
+                        <li class="p_price">
+                            <i>阿甲专属价</i>
+                            <br/>
+                            <span class="pro_price">￥<span class="ppp_price">{{p.price}}</span></span>
+                        </li>
+                        <li class="p_count">X<span>{{p.count}}</span></li>
+                        <li class="p_tPrice">￥<span>{{p.price*p.count}}</span></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </form>
     <!-- 结算条-->
     <div id="count_bar">
-        <span class="go_cart"><a href="#" >&lt;&lt;返回购物车</a></span>
-        <span class="count_bar_info">已选<b  id="count"> 0 </b>件商品&nbsp;&nbsp;合计(不含运费):<b class="zj"></b> <input type="hidden" name="Payment" value=""/>元</span>
-        <span class="go_pay">确认并付款</span>
+        <span class="go_cart"><a routerLink="/cart" >&lt;&lt;返回购物车</a></span>
+        <span class="count_bar_info">已选<b  id="count"> {{cartList.length}} </b>件商品&nbsp;&nbsp;合计(不含运费):<b class="zj">{{totalPrice}}</b> <input type="hidden" name="Payment" value=""/>元</span>
+        <span class="go_pay" routerLink="../pay">确认并付款</span>
     </div>
 </div>
-
-
-<storeFooter></storeFooter>

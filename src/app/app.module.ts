@@ -17,7 +17,12 @@ import { RegisterComponent } from './register/register.component'
 import { CollectComponent } from './collect/collect.component'
 import { ListComponent } from './list/list.component'
 import { DetailComponent } from './detail/detail.component'
-import { OrderConfirmComponent } from './orderConfirm/orderConfirm.component'
+
+import { OrderContainerComponent } from './orderConfirm/orderContainer.component'
+import { OrderConfirmComponent } from './orderConfirm/children/confirm/orderConfirm.component'
+import { PayComponent } from './orderConfirm/children/pay/pay.component'
+import { PaySuccessComponent } from './orderConfirm/children/success/paysuccess.component';
+
 import { UserCenterComponent } from './userCenter/userCenter.component'
 import { CartComponent } from './cart/cart.component'
 
@@ -25,7 +30,7 @@ import { CartComponent } from './cart/cart.component'
 @NgModule({
   imports: [BrowserModule, AppRoutingModule, HttpModule, JsonpModule, FormsModule],
   providers: [HttpService],
-  declarations: [AppComponent, IndexComponent, NotFoundComponent, HeaderComponent, FooterComponent, Carousel, Slide, LoginComponent, RegisterComponent, CollectComponent, ListComponent, DetailComponent, OrderConfirmComponent, UserCenterComponent, CartComponent],
+  declarations: [AppComponent, IndexComponent, NotFoundComponent, HeaderComponent, FooterComponent, Carousel, Slide, LoginComponent, RegisterComponent, CollectComponent, ListComponent, DetailComponent, OrderConfirmComponent, UserCenterComponent, CartComponent, OrderContainerComponent, PayComponent, PaySuccessComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

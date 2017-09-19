@@ -19,6 +19,7 @@ export class CartComponent implements OnInit {
         this.loadData();
     }
 
+    // 修改购物车中产品的数量
     modifyCount(index: number, isAdd: boolean) {
         let saveCount = this.productList[index].count;
         let nowCount = this.productList[index].count;
@@ -48,6 +49,7 @@ export class CartComponent implements OnInit {
         }
     }
 
+    // 全选 或者 取消全选
     selectAll() {
         this.isSelectAll = !this.isSelectAll;
         for (var i = 0; i < this.productList.length; i++) {
@@ -55,6 +57,7 @@ export class CartComponent implements OnInit {
         }
         if (this.isSelectAll) {
             this.nowTotalSelectCount = this.productList.length
+            this.nowTotalSelectPrice = 0;
             for (var i = 0; i < this.productList.length; i++) {
                 this.nowTotalSelectPrice += (this.productList[i].count * this.productList[i].price);
             }
@@ -64,16 +67,30 @@ export class CartComponent implements OnInit {
         }
     }
 
+    // 选中或者取消选中 购物车中某一个
     selectSpecifyOne(index: number) {
         this.productList[index].isSelected = !this.productList[index].isSelected;
+        var checked = 0;
         if (this.productList[index].isSelected) {
+            checked = 1;
             this.nowTotalSelectCount++;
             this.nowTotalSelectPrice += (this.productList[index].count * this.productList[index].price);
         }
         else {
+            checked = 0;
             this.nowTotalSelectCount--;
             this.nowTotalSelectPrice -= (this.productList[index].count * this.productList[index].price);
+            //如果取消选中了某一个时当时处于全选状态，则取消全选。
+            if (this.isSelectAll) {
+                this.isSelectAll = false;
+            }
         }
+
+        //更新服务器端该菜品的选中情况
+        this.httpService.sendRequest('/cart/update_checked.php?&callback=JSONP_CALLBACK&iid=' + this.productList[index].iid + "&checked=" + checked)
+            .subscribe((result: any) => {
+                console.log(result);
+            })
     }
 
     loadData() {
@@ -91,6 +108,14 @@ export class CartComponent implements OnInit {
     }
 
     toPay() {
-        this.router.navigateByUrl('/orderConfirm');
+        this.router.navigateByUrl('/orderContainer');
+        // var selectList = [];
+        // for (var i = 0; i < this.productList.length; i++) {
+        //     if (this.productList[i].isSelected) {
+        //         selectList.push(this.productList[i]);
+        //     }
+        // }
+        // console.log(selectList);
+        // this.router.navigate(['/orderConfirm', { 'list': selectList }]);
     }
 }

@@ -8,7 +8,12 @@ import { RegisterComponent } from './register/register.component'
 import { CollectComponent } from './collect/collect.component'
 import { ListComponent } from './list/list.component'
 import { DetailComponent } from './detail/detail.component'
-import { OrderConfirmComponent } from './orderConfirm/orderConfirm.component'
+
+import { OrderConfirmComponent } from './orderConfirm/children/confirm/orderConfirm.component'
+import { PayComponent } from './orderConfirm/children/pay/pay.component'
+import { OrderContainerComponent } from './orderConfirm/orderContainer.component'
+import { PaySuccessComponent } from './orderConfirm/children/success/paysuccess.component';
+
 import { UserCenterComponent } from './userCenter/userCenter.component'
 import { CartComponent } from './cart/cart.component'
 
@@ -23,7 +28,16 @@ const routes: Routes = [
     { path: 'list', component: ListComponent },
     { path: 'detail/:id', component: DetailComponent },
     { path: 'cart', component: CartComponent },
-    { path: 'orderConfirm', component: OrderConfirmComponent },
+    {
+        path: 'orderContainer',
+        component: OrderContainerComponent,
+        children: [
+            { path: 'orderConfirm', component: OrderConfirmComponent },
+            { path: 'pay', component: PayComponent },
+            { path: 'paySuccess', component: PaySuccessComponent },
+            { path: '', redirectTo: 'orderConfirm', pathMatch: 'full' },
+        ]
+    },
     { path: 'userCenter', component: UserCenterComponent },
     // 第四个路由中的空路径（''）表示应用的默认路径，当URL为空时就会访问那里，因此它通常会作为起点。
     { path: '', redirectTo: 'index', pathMatch: 'full' },

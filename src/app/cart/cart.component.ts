@@ -38,12 +38,16 @@ export class CartComponent implements OnInit {
                     if (result.code == 200) {
                         console.log('修改本地数量');
                         this.productList[index].count = nowCount;
-                        if (isAdd) {
-                            this.nowTotalSelectPrice += (this.productList[index].count * this.productList[index].price);
+                        //只有在本产品选中时，修改产品数量时 才有必要修改选中的总价格信息
+                        if (this.productList[index].isSelected) {
+                            if (isAdd) {
+                                this.nowTotalSelectPrice += (this.productList[index].count * this.productList[index].price);
+                            }
+                            else {
+                                this.nowTotalSelectPrice -= (this.productList[index].count * this.productList[index].price);
+                            }
                         }
-                        else {
-                            this.nowTotalSelectPrice -= (this.productList[index].count * this.productList[index].price);
-                        }
+
                     }
                 })
         }
